@@ -20,5 +20,13 @@ public class EventoController : ControllerBase
         return Ok(await _repository.GetAllOrderBy(c => c.Event));
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] Evento evento){
+        if(evento == null) return BadRequest();
+        Console.WriteLine(evento.Id);
+        var created = await _repository.Insert(evento);
+        return Created("created",created);
+    }
+
     
 }
